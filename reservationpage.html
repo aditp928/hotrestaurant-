@@ -74,6 +74,18 @@
     </footer>
 
   </div>
+  <script>
 
+    $("#submit").on("click", function(){
+      let newTable = {
+        tableName: $("#reserve-name").val().trim(),
+        phone: $("#reserve-phone").val().trim(),
+        email: $("#reserve-email").val().trim(),
+        id: $("#reserve-unique-id").val().trim()
+      }
+      console.log(newTable);
+    });
+ 
+  </script>
 </body>
 </html>
