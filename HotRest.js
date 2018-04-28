@@ -33,21 +33,21 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "tablespage.html"));
 });
 
-app.get("/add", function(req, res) {
+app.get("/reservationpage", function(req, res) {
   res.sendFile(path.join(__dirname, "reservationpage.html"));
 });
 
-app.get("/all", function(req, res) {
+app.get("/tablesview", function(req, res) {
   res.sendFile(path.join(__dirname, "tablesview.html"));
 });
 
 // Displays all reservations
-app.get("/api/tablesview", function(req, res) {
+app.get("/tablesview", function(req, res) {
   return res.json(tables);
 });
 
 // Displays a single reservation, or returns false
-app.get("/api/tablesview/:id", function(req, res) {
+app.get("/tablesview/:id", function(req, res) {
   var chosen = req.params.id;
 
   console.log(chosen);
@@ -62,20 +62,20 @@ app.get("/api/tablesview/:id", function(req, res) {
 });
 
 // Create New Reservation - takes in JSON input
-app.post("/api/tablesview", function(req, res) {
+app.post("/tablesview", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body-parser middleware
-  var newReservation = req.body;
+  var newTable = req.body;
 
-  // Using a RegEx Pattern to remove spaces from newReservation
+  // Using a RegEx Pattern to remove spaces from newTable
   // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  newReservation.id = newReservation.name.replace(/\s+/g, "").toLowerCase();
+  newTable.id = newTable.name.replace(/\s+/g, "").toLowerCase();
 
-  console.log(newReservation);
+  console.log(newTable);
 
-  characters.push(newReservation);
+  reservations.push(newTable);
 
-  res.json(newReservation);
+  res.json(newTable);
 });
 
 // Starts the server to begin listening

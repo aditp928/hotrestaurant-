@@ -21,8 +21,8 @@
       <br>
 
       <div class="text-center">
-        <a href="./tablesview.html"><button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> View Tables</button></a>
-        <a href="./tablespage.html"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
+        <a href="/tablesview"><button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> View Tables</button></a>
+        <a href="/"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
                 <input type="text" class="form-control" id="reserve-unique-id">
               </div>
 
-              <button type="submit" class="btn btn-primary submit">Submit</button>
+              <button type="submit" class="btn btn-primary submit" id="submit">Submit</button>
             </form>
 
           </div>
@@ -75,16 +75,43 @@
 
   </div>
   <script>
+$("#submit").on("click", function (event) {
+  event.preventDefault();
 
-    $("#submit").on("click", function(){
-      let newTable = {
-        tableName: $("#reserve-name").val().trim(),
-        phone: $("#reserve-phone").val().trim(),
-        email: $("#reserve-email").val().trim(),
-        id: $("#reserve-unique-id").val().trim()
-      }
-      console.log(newTable);
-    });
+     let newTable = {
+       tableName: $("#reserve-name").val().trim(),
+       phone: $("#reserve-phone").val().trim(),
+       email: $("#reserve-email").val().trim(),
+       id: $("#reserve-unique-id").val().trim()
+     }
+      console.log("hi");
+     console.log(newTable);
+
+     var currentURL = window.location.origin;
+
+     $.post(currentURL + "/tablesview", newTable,
+       function (data) {
+         
+         if (data == true) {
+           alert("Yay! You are officially booked!")
+         }
+         
+         if (data == false) {
+           alert("Sorry you are on the wait list")
+         }
+         
+         $('#reserve-name').val("");
+         $('#reserve-phone').val("");
+         $('#reserve-email').val("");
+         $('#reserve-unique-id').val("");
+       });
+
+     return false;
+
+     
+
+
+   });
  
   </script>
 </body>
